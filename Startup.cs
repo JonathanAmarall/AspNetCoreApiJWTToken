@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Backend.Data;
 using Backend.Hubs;
+using Backend.Services;
 using Backend.Shared;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -17,6 +18,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
+using Shared.Interfaces;
 
 namespace backend
 {
@@ -32,11 +34,16 @@ namespace backend
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+             // depency injection 
+            services.AddScoped<DataContext, DataContext>();
+            services.AddTransient<IUserRepository, UserRepository>();
+
             services.AddControllers();
             services.AddSignalR();
 
-            services.AddDbContext<DataContext>(options => 
+            services.AddDbContext<DataContext>(options =>
             options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
+          
 
             var key = Encoding.ASCII.GetBytes(Settings.Secret);
 
@@ -71,8 +78,14 @@ namespace backend
 
             app.UseRouting();
 
+            app.UseCors(x => x
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader());
+
             app.UseAuthorization();
             app.UseAuthentication();
+
 
             app.UseEndpoints(endpoints =>
             {
