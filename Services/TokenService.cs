@@ -6,29 +6,30 @@ using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Backend.Services
 {
     public class TokenService
     {
         private readonly AppSettings _appSettings;
-        public TokenService(IOptions<AppSettings> appSettings)
+        private readonly UserManager<IdentityUser> _userManager;
+        public TokenService(IOptions<AppSettings> appSettings, UserManager<IdentityUser> userManager)
         {
             _appSettings = appSettings.Value;
+            _userManager = userManager;
         }
-        public string GenerateToken(IdentityUser user)
+        public async Task<string> GenerateToken(IdentityUser user)
         {
-            var teste = _appSettings.Secret;
+            var identityClaims = new ClaimsIdentity();
 
+            identityClaims.AddClaims(await _userManager.GetClaimsAsync(user));
+                
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
             var tokenDescriptor = new SecurityTokenDescriptor
             {
-                Subject = new ClaimsIdentity(new Claim[]
-                {
-                    //new Claim(ClaimTypes.Name, user.Username.ToString()),
-                    //new Claim(ClaimTypes.Role, user.Role.ToString())
-                }),
+                Subject = identityClaims,
                 Expires = DateTime.UtcNow.AddHours(_appSettings.ExpiracaoHoras),
                 Issuer = _appSettings.Emissor,
                 Audience = _appSettings.ValidoEm,

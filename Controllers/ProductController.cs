@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Backend;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -15,5 +16,13 @@ namespace backend.Controllers
     {
         [HttpGet("teste")]
         public IActionResult Get() => Ok();
+
+        [ClaimsAuthorize("Produto", "Criar")]
+        [HttpGet("teste1")]
+        public IActionResult Get2() => Ok();
+
+        [ClaimsAuthorize("Produto", "Editar")]
+        [HttpGet("teste2")]
+        public IActionResult Get3() => Ok();
     }
 }
