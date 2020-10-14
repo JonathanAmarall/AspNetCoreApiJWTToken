@@ -40,8 +40,6 @@ C:\Users\jhoua\Desktop\backend\bin\Debug\netcoreapp3.1\System.IdentityModel.Toke
 C:\Users\jhoua\Desktop\backend\obj\Debug\netcoreapp3.1\backend.csprojAssemblyReference.cache
 C:\Users\jhoua\Desktop\backend\obj\Debug\netcoreapp3.1\backend.AssemblyInfoInputs.cache
 C:\Users\jhoua\Desktop\backend\obj\Debug\netcoreapp3.1\backend.AssemblyInfo.cs
-C:\Users\jhoua\Desktop\backend\obj\Debug\netcoreapp3.1\backend.csproj.CoreCompileInputs.cache
-C:\Users\jhoua\Desktop\backend\obj\Debug\netcoreapp3.1\backend.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\jhoua\Desktop\backend\obj\Debug\netcoreapp3.1\backend.RazorTargetAssemblyInfo.cache
 C:\Users\jhoua\Desktop\backend\obj\Debug\netcoreapp3.1\backend.csproj.CopyComplete
 C:\Users\jhoua\Desktop\backend\obj\Debug\netcoreapp3.1\staticwebassets\backend.StaticWebAssets.Manifest.cache
@@ -49,3 +47,17 @@ C:\Users\jhoua\Desktop\backend\obj\Debug\netcoreapp3.1\staticwebassets\backend.S
 C:\Users\jhoua\Desktop\backend\obj\Debug\netcoreapp3.1\backend.dll
 C:\Users\jhoua\Desktop\backend\obj\Debug\netcoreapp3.1\backend.pdb
 C:\Users\jhoua\Desktop\backend\obj\Debug\netcoreapp3.1\backend.genruntimeconfig.cache
+C:\Users\jhoua\Desktop\backend\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Cryptography.Internal.dll
+C:\Users\jhoua\Desktop\backend\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
+C:\Users\jhoua\Desktop\backend\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+C:\Users\jhoua\Desktop\backend\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Identity.Core.dll
+C:\Users\jhoua\Desktop\backend\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Identity.Stores.dll
+C:\Users\jhoua\Desktop\backend\bin\Debug\netcoreapp3.1\backend.StaticWebAssets.xml
+C:\Users\jhoua\Desktop\backend\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Identity.UI.Views.V3.dll
+C:\Users\jhoua\Desktop\backend\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Identity.UI.Views.V4.dll
+C:\Users\jhoua\Desktop\backend\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Identity.UI.dll
+C:\Users\jhoua\Desktop\backend\bin\Debug\netcoreapp3.1\Microsoft.Extensions.FileProviders.Abstractions.dll
+C:\Users\jhoua\Desktop\backend\bin\Debug\netcoreapp3.1\Microsoft.Extensions.FileProviders.Embedded.dll
+C:\Users\jhoua\Desktop\backend\obj\Debug\netcoreapp3.1\backend.csproj.CoreCompileInputs.cache
+C:\Users\jhoua\Desktop\backend\obj\Debug\netcoreapp3.1\backend.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\jhoua\Desktop\backend\obj\Debug\netcoreapp3.1\backend.MvcApplicationPartsAssemblyInfo.cache

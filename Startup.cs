@@ -1,8 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Backend.Data;
 using Backend.Hubs;
 using Backend.Services;
@@ -10,15 +5,14 @@ using Backend.Shared;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Shared.Interfaces;
+using System.Text;
 
 namespace backend
 {
@@ -36,16 +30,26 @@ namespace backend
         {
              // depency injection 
             services.AddScoped<DataContext, DataContext>();
+            services.AddTransient<TokenService, TokenService>();
             services.AddTransient<IUserRepository, UserRepository>();
 
             services.AddControllers();
             services.AddSignalR();
 
-            services.AddDbContext<DataContext>(options =>
-            options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
-          
+            services.AddDbContext<DataContext>(options => options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
 
-            var key = Encoding.ASCII.GetBytes(Settings.Secret);
+
+            services.AddDefaultIdentity<IdentityUser>()
+              .AddRoles<IdentityRole>()
+              .AddEntityFrameworkStores<DataContext>()
+              .AddDefaultTokenProviders();
+
+            // JWT
+            var appSettingsSection = Configuration.GetSection("AppSettings");
+            services.Configure<AppSettings>(appSettingsSection);
+
+            var appSettings = appSettingsSection.Get<AppSettings>();
+            var key = Encoding.ASCII.GetBytes(appSettings.Secret);
 
             services.AddAuthentication(x =>
             {
@@ -58,10 +62,11 @@ namespace backend
                 x.SaveToken = true;
                 x.TokenValidationParameters = new TokenValidationParameters
                 {
-                    ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(key),
-                    ValidateIssuer = false,
-                    ValidateAudience = false
+                    ValidateIssuerSigningKey = true, // Valida o Emissor 
+                    IssuerSigningKey = new SymmetricSecurityKey(key), 
+                    ValidateIssuer = true, // valida Emissor e ValidoEm
+                    ValidAudience = appSettings.ValidoEm,
+                    ValidIssuer = appSettings.Emissor, // pdo ter varios
                 };
             });
         }
@@ -76,16 +81,16 @@ namespace backend
 
             app.UseHttpsRedirection();
 
+            app.UseAuthentication();
+
             app.UseRouting();
+
+            app.UseAuthorization();
 
             app.UseCors(x => x
                 .AllowAnyOrigin()
                 .AllowAnyMethod()
                 .AllowAnyHeader());
-
-            app.UseAuthorization();
-            app.UseAuthentication();
-
 
             app.UseEndpoints(endpoints =>
             {

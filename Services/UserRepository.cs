@@ -19,9 +19,7 @@ namespace Backend.Services
 
         public User GetUser(string username, string password)
         {
-            return _context.Users
-                .Where(u => u.Username == username && u.Password == password)
-                .FirstOrDefault();
+            return new User();
         }
     }
 }
